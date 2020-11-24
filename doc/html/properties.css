@@ -1,0 +1,23 @@
+    div {
+      background-image: url("url/redconiglio.png");
+    }
+    h1 {
+      background-color: red;
+
+    }
+    h2 {
+
+      background-color: green;        
+    }
+
+    h17 {
+      background-color: yellow;        
+        
+    }
+    p {
+          font-family: verdana;
+    }
+    body
+    {
+        background-image: url("url/redconiglio.png");
+    }
