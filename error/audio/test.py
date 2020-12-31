@@ -11,10 +11,37 @@ filepath = pathlib.Path(__file__).parent.absolute()
 pygame.init()
 pygame.mixer.init()
 
+good = 0
+try:    
+    musicpath = os.path.join(filepath,'valve.mp3')
+    pygame.mixer.music.load(musicpath)
+    good += 1
+    print("mp3 passed")
+except:
+    print("mp3 failed")
+try:    
+    musicpath = os.path.join(filepath,'valve.ogg')
+    pygame.mixer.music.load(musicpath)
+    good += 1
+    print("ogg passed")
+except:
+    print("ogg failed")
+try:    
+    musicpath = os.path.join(filepath,'valve.wav')
+    pygame.mixer.music.load(musicpath)
+    good += 1
+    print("wav passed")
+except:
+    print("wav failed")
+    
+if good == 3:
+    print("[ OK ]")
+elif good > 0:
+    print("[pass]")
+else:
+    print("[FAIL]")
 
-musicpath = os.path.join(filepath,'valve.mp3')
-
-pygame.mixer.music.load(musicpath)
+print("Press SPACEBAR to stop...")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(0.3)
 
