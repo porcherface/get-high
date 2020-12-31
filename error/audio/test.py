@@ -23,6 +23,7 @@ try:
     musicpath = os.path.join(filepath,'valve.ogg')
     pygame.mixer.music.load(musicpath)
     good += 1
+    goodpath = musicpath
     print("ogg passed")
 except:
     print("ogg failed")
@@ -30,20 +31,37 @@ try:
     musicpath = os.path.join(filepath,'valve.wav')
     pygame.mixer.music.load(musicpath)
     good += 1
+    goodpath = musicpath
     print("wav passed")
 except:
     print("wav failed")
     
-if good == 3:
+try:
+    musicpath = os.path.join(filepath,'valve.jpg')
+    pygame.mixer.music.load(musicpath)
+    print("negative failed")
+except pygame.error:
+    good += 1
+    print("negative passed")
+
+
+if good == 4:
     print("[ OK ]")
-elif good > 0:
+elif good > 1:
     print("[pass]")
 else:
-    print("[FAIL]")
+    print("[HARD FAIL]")
+    print("1) uninstall pygame: pip3 uninstall pygame")
+    print("2) install sdl_mixer: ")
+    print("   dnf install libsdl2-dev")
+    print("   dnf install SDL_mixer")
+    print("3)install pygame: pip3 install pygame")
+    
+pygame.mixer.music.load(goodpath)
+pygame.mixer.music.play()
+pygame.mixer.music.set_volume(1)
 
 print("Press SPACEBAR to stop...")
-pygame.mixer.music.play()
-pygame.mixer.music.set_volume(0.3)
 
 main = True
 
