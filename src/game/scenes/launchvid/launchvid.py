@@ -41,7 +41,7 @@ class LaunchvidScene(object):
         musicpath = os.path.join(launchvidpath,'res','valve.mp3')
 
         if MY_AUDIO_IS_WORKING:
-            pygame.mixer.sound.load(musicpath)
+            pygame.mixer.music.load(musicpath)
             pygame.mixer.music.play()
             pygame.mixer.music.set_volume(0.3)
 
