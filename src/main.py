@@ -52,6 +52,7 @@ libm.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
 '''
 INIT
 '''
+pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
 pygame.init()
 if MY_AUDIO_IS_WORKING:
     pygame.mixer.init()
