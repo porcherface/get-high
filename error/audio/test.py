@@ -57,9 +57,22 @@ else:
     print("   dnf install SDL_mixer")
     print("3)install pygame: pip3 install pygame")
     
+
+
+print("do u hear valve music?")
 pygame.mixer.music.load(goodpath)
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(1)
+
+
+input("press enter to go on")
+pygame.mixer.music.stop()
+try:
+    explosion = pygame.mixer.Sound( os.path.join(filepath,"explosion_sfx.ogg") )
+    explosion.play()
+    print("did u hear an explosion?")
+except:
+    print("explosion_sfx load failed")
 
 print("Press SPACEBAR to stop...")
 
