@@ -56,7 +56,7 @@ class TitleScene(libs.Scene):
         self.STATE = 0
         libs.Scene.__init__(self)
         backdroppath=os.path.join(titlepath,'res','title_background.jpg')
-        musicpath = os.path.join(titlepath,'res','borntodie_instr.mp3')
+        musicpath = os.path.join(titlepath,'res','borntodie_instr.ogg')
         
 
         self.fps = 40
@@ -68,7 +68,7 @@ class TitleScene(libs.Scene):
         if MY_AUDIO_IS_WORKING:
             pygame.mixer.music.load(musicpath)
             pygame.mixer.music.play()
-            pygame.mixer.music.set_volume(0.1)
+            pygame.mixer.music.set_volume(0.3)
 
         self.backdrop = pygame.image.load(os.path.join(backdroppath))
         self.backdropbox = self.world.get_rect()

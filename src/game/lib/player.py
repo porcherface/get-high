@@ -159,8 +159,8 @@ class SpaceShip(pygame.sprite.Sprite):
         self.speed = 10
         self.fuel = 300
 
-        #self.death_sfx = pygame.mixer.Sound(os.path.join(libpath,'res', 'player',"explosion_sfx.mp3"))
-        
+        self.death_sfx = pygame.mixer.Sound(os.path.join(libpath,'res', 'player',"explosion_sfx.ogg"))
+        self.death_sfx.set_volume(0.1)
         self.id = player_id
 
         for i in range(1, 3):
@@ -331,7 +331,7 @@ class SpaceShip(pygame.sprite.Sprite):
         return False
     
     def die(self):
-        #self.death_sfx.play()
+        self.death_sfx.play()
         self.alive = False
         pass
 

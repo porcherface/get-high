@@ -27,7 +27,6 @@ class SceneManager(object):
         labyrinth.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
         spring.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
 
-
         ###############
         # debug miniloop
         if DEBUG_MODE:
@@ -40,14 +39,11 @@ class SceneManager(object):
                 
             return
 
-
-
         ##############################################
         ##############################################
         ##########     GAME STATES HERE      #########
         ##############################################
         ##############################################    
-
         scene = launchvid.LaunchvidScene()
         scene = title.TitleScene()
         #print(scene)
@@ -60,7 +56,7 @@ class SceneManager(object):
                 scene = asteroids.AsteroidScene()
                 scene = landing.LandingScene()
                 scene = labyrinth.LabyrinthScene()
-                scene = spring.SpringScene()
+                #scene = spring.SpringScene()
                 return 
             if(scene.STATE == 1):
                 print("no loadlevel gui yet, bye!xoxoxo")                

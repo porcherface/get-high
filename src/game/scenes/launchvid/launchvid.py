@@ -38,7 +38,7 @@ class LaunchvidScene(object):
         self.backsback=pygame.Surface([self.camx, self.camy]).convert()
         self.backsback.fill([0,0,0])
         pygame.display.flip()
-        musicpath = os.path.join(launchvidpath,'res','valve.mp3')
+        musicpath = os.path.join(launchvidpath,'res','valve.ogg')
 
         if MY_AUDIO_IS_WORKING:
             pygame.mixer.music.load(musicpath)
