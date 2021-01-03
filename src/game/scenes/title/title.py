@@ -53,16 +53,12 @@ class LoadWindow(pygame.sprite.Sprite):
 
 class TitleScene(libs.Scene):
     def __init__(self):
-        self.STATE = 0
         libs.Scene.__init__(self)
         backdroppath=os.path.join(titlepath,'res','title_background.jpg')
         musicpath = os.path.join(titlepath,'res','borntodie_instr.ogg')
         
 
-        self.fps = 40
-        self.worldx = 1376
-        self.worldy = 768
-        self.world = pygame.display.set_mode([self.worldx, self.worldy])
+
         self.clock = pygame.time.Clock()
 
         if MY_AUDIO_IS_WORKING:

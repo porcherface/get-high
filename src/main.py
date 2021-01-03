@@ -23,6 +23,8 @@ import game.lib.manager as libm
 import argparse
 import ctypes
 
+from pygame.locals import FULLSCREEN as FULLSCREEN
+
 mainpath = pathlib.Path(__file__).parent.absolute()
 
 # two global variable passed as arguments
@@ -57,10 +59,13 @@ pygame.init()
 if MY_AUDIO_IS_WORKING:
     pygame.mixer.init()
 
-# activate these lines to go fullscreen mode
-infoObject = pygame.display.Info()
+# uncomment these lines to go fullscreen mode
+#infoObject = pygame.display.Info()
 #pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
 
+# uncomment these lines to go custom resolution mode
+#infoObject = pygame.display.Info()
+#pygame.display.set_mode((1600, 900),FULLSCREEN)
 
 
 '''

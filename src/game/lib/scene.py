@@ -2,9 +2,25 @@
 import os
 import pygame 
 
+from pygame.locals import FULLSCREEN as FULLSCREEN
+
 class Scene(object):
-    def __init__(self):
-        pass
+    def __init__(self,x = None,y = None):
+        
+        if x == None and y == None:
+            infoObject  = pygame.display.Info()
+            x = infoObject.current_w
+            y = infoObject.current_h
+
+        self.STATE = 0
+        self.fps = 40
+
+        self.worldx = x
+        self.worldy = y
+        self.camx   = x
+        self.camy   = y
+        self.world  = pygame.display.set_mode([self.camx, self.camy],FULLSCREEN)
+        return
 
     def render(self, screen):
         raise NotImplementedError

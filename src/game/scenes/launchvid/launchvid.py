@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 import os
 import pygame 
-
 from typing import Tuple
-
 import game.lib.scene as libs
-
 import random
 import pathlib
 launchvidpath = pathlib.Path(__file__).parent.absolute()
@@ -17,19 +14,11 @@ def get_globals(debug,goodaudio):
     global MY_AUDIO_IS_WORKING
     MY_AUDIO_IS_WORKING = goodaudio
 
-class LaunchvidScene(object):
+class LaunchvidScene(libs.Scene):
     def __init__(self):
-        self.STATE = 0
-        self.fps = 40
         libs.Scene.__init__(self)
+
         backdroppath=os.path.join(launchvidpath,'res','redconiglio.png')
-
-
-        self.worldx = 1376
-        self.worldy= 768
-        self.camx = 1376
-        self.camy= 768
-        self.world =  pygame.display.set_mode([self.camx, self.camy])
         self.backdrop = pygame.image.load(os.path.join(backdroppath)).convert()
         self.backdropbox = self.backdrop.get_rect()
         self.clock = pygame.time.Clock()
@@ -52,7 +41,6 @@ class LaunchvidScene(object):
         main1 = True
         main2 = True
         while main1 and main2:
-            
             t1 =pygame.time.get_ticks()
             main2 = ((t1-t0)< delay_time)
             main1 = self.handle_events(pygame.event.get())

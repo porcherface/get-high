@@ -21,30 +21,17 @@ def get_globals(debug,goodaudio):
     DEBUG_MODE = debug
     global MY_AUDIO_IS_WORKING
     MY_AUDIO_IS_WORKING = goodaudio
-    
-def get_screen_size(x,y):
-    global SCREEN_X
-    global SCREEN_Y 
-    SCREEN_X = x
-    SCREEN_Y = y
-
-get_screen_size(1600,900)
 
 class AsteroidScene(libs.Scene):
     def __init__(self,autorun=True):
-
         print("AsteroidScene")
-        get_screen_size
-        self.STATE = 0
+
         libs.Scene.__init__(self)
         backdroppath=os.path.join(asteroidpath,'res','space_bg_sara.png')
         
 
         self.hardener = 10
-        self.fps = 40
-        self.worldx = SCREEN_X
-        self.worldy = SCREEN_Y
-        self.world = pygame.display.set_mode([self.worldx, self.worldy])
+
         self.clock = pygame.time.Clock()
 
         #get elapsed time using this!
@@ -64,16 +51,16 @@ class AsteroidScene(libs.Scene):
         self.player_list.add(self.player1)
         self.player_list.add(self.player2)
 
-        self.backdrop = pygame.image.load(os.path.join(backdroppath))
+        self.backdrop = pygame.transform.scale(pygame.image.load(os.path.join(backdroppath)), (self.worldx, self.worldy) )
         self.backdropbox = self.world.get_rect()
  
 
         self.surviveLabel = libb.Label("survive")
-        self.surviveLabel.position(SCREEN_X/2,SCREEN_Y/2)
+        self.surviveLabel.position(self.worldx/2,self.worldy/2)
         
 
         self.timer = libb.Timer(pygame.time.get_ticks())
-        self.timer.position(SCREEN_X/2, 30)
+        self.timer.position(self.worldx/2, 30)
 
 
         '''
@@ -196,7 +183,7 @@ class AsteroidScene(libs.Scene):
                 self.timer_set = True
 
                 self.surviveLabel = libb.Label("gameover")
-                self.surviveLabel.position(SCREEN_X/2,SCREEN_Y/2)
+                self.surviveLabel.position(self.worldx/2,self.worldy/2)
 
             if event.type == self.DEATH_EVENT_KEY:
                 main = False

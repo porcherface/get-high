@@ -18,14 +18,6 @@ def get_globals(debug,goodaudio):
     global MY_AUDIO_IS_WORKING
     MY_AUDIO_IS_WORKING = goodaudio
 
-def get_screen_size(x,y):
-    global SCREEN_X
-    global SCREEN_Y 
-    SCREEN_X = x
-    SCREEN_Y = y
-
-get_screen_size(1600,900)
-
 class Baloon(pygame.sprite.Sprite):
     def __init__(self,icon_id=None):
         pygame.sprite.Sprite.__init__(self)
@@ -52,8 +44,15 @@ class Shadow(pygame.sprite.Sprite):
 
 class Hud(pygame.sprite.Sprite):
 
-    def __init__(self,player_id=None):
+    def __init__(self,player_id=None,x = None, y = None):
         pygame.sprite.Sprite.__init__(self)
+
+        if x == None and y == None:
+            infoObject  = pygame.display.Info()
+            self.SCREEN_X = infoObject.current_w
+            self.SCREEN_Y = infoObject.current_h
+
+
 
         self.totfuel = 300
 
@@ -66,12 +65,12 @@ class Hud(pygame.sprite.Sprite):
         # position icon
         if player_id == 1:
            self.imagebox.x = 0 + 80
-           self.imagebox.y = SCREEN_Y - 140- 20 #hardcoded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+           self.imagebox.y = self.SCREEN_Y - 140- 20 #hardcoded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
         if player_id == 2:
-            self.imagebox.x = SCREEN_X-140 -80
-            self.imagebox.y = SCREEN_Y - 140-20 #hardcoded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            self.imagebox.x = self.SCREEN_X-140 -80
+            self.imagebox.y = self.SCREEN_Y - 140-20 #hardcoded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  
         self.gaugeframe=pygame.Surface([self.totfuel, 40]).convert()
         self.gauge=pygame.Surface([self.totfuel, 30]).convert()
@@ -82,16 +81,16 @@ class Hud(pygame.sprite.Sprite):
         self.gaugerect = self.gauge.get_rect()
         self.gaugeframerect = self.gaugeframe.get_rect()
 
-        self.gaugeframerect.y = SCREEN_Y - 65
-        self.gaugerect.y = SCREEN_Y - 60
+        self.gaugeframerect.y = self.SCREEN_Y - 65
+        self.gaugerect.y = self.SCREEN_Y - 60
 
         if player_id == 1:
             self.gaugeframerect.x = 0 + 80 + 140 
             self.gaugerect.x = 0 + 80 + 140  #hardcoded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         if player_id == 2:       
-            self.gaugeframerect.x = SCREEN_X - 140 - 80 - self.totfuel 
-            self.gaugerect.x = SCREEN_X - 140 - 80 - self.totfuel  #hardcoded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            self.gaugeframerect.x = self.SCREEN_X - 140 - 80 - self.totfuel 
+            self.gaugerect.x = self.SCREEN_X - 140 - 80 - self.totfuel  #hardcoded!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
     def draw(self, world,params):
@@ -106,7 +105,7 @@ class Hud(pygame.sprite.Sprite):
             self.gaugerect.width = params
 
         if self.id  == 2:
-            self.gaugerect.x =  SCREEN_X - 140 - 80 -  self.totfuel + (self.totfuel-params)
+            self.gaugerect.x =  self.SCREEN_X - 140 - 80 -  self.totfuel + (self.totfuel-params)
 
         world.blit( self.image , self.imagebox)
         world.blit( self.image , self.imagebox)
