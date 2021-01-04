@@ -128,7 +128,7 @@ r'''
 '''
 
 
-class SpaceShip(pygame.sprite.Sprite):
+class Player(pygame.sprite.Sprite):
     """
     Spawn a player
     """
@@ -158,27 +158,6 @@ class SpaceShip(pygame.sprite.Sprite):
         self.speed = 10
         self.fuel = 300
 
-        self.death_sfx = pygame.mixer.Sound(os.path.join(libpath,'res', 'player',"explosion_sfx.ogg"))
-        self.death_sfx.set_volume(0.1)
-        self.id = player_id
-
-        for i in range(1, 3):
-            img = pygame.image.load(os.path.join(libpath,'res', 'player','player'+str(player_id)+'_'+str(i)+'.png')).convert_alpha()
-            img.convert_alpha()  # optimise alpha
-            #img.set_colorkey(ALPHA)  # set alpha
-            self.images.append(img)
-            self.image = self.images[0]
-
-        for i in range(1,9):
-            img = pygame.image.load(os.path.join(libpath,'res', 'player','explosion-0'+str(i)+'.png')).convert_alpha()
-            img.convert_alpha()  # optimise alpha
-            img.set_colorkey(ALPHA)  # set alpha
-            self.deathanim.append(img)
-            self.image = self.images[0]
-
-        boundingbox = pygame.transform.rotate(self.image,45)
-        self.rect = boundingbox.get_rect()
-
     def control(self, x, y):
         """
         control player movement
@@ -188,10 +167,6 @@ class SpaceShip(pygame.sprite.Sprite):
 
     # update according to boundaries
     def update(self,bound_to = None):
-        """
-        Update sprite position
-        """
-        
         if self.alive and self.fuel>0:
 
             self.rect.x = self.rect.x + self.movex
@@ -219,28 +194,23 @@ class SpaceShip(pygame.sprite.Sprite):
 
     # update according to collisions
     def update_2(self,collidelist):
-
         if self.alive:
             self.rect.y = self.rect.y + self.movey    
             self.rect.x = self.rect.x + self.movex
 
             if self.check_collision_simple(collidelist):
                 self.rect.x = self.rect.x - 1.1*self.movex
-                self.rect.y = self.rect.y - 1.1*self.movey    
-        
+                self.rect.y = self.rect.y - 1.1*self.movey      
         self.update_shapes()
 
-
- 
     def update_shapes(self):
-
+        raise NotImplementedError
+        '''
         if self.ismoving:
             self.fuel -= 1
 
-
         self.x = self.rect.center[0]
         self.y = self.rect.center[1]
-
         self.update_angle()
 
         if self.alive:
@@ -250,7 +220,7 @@ class SpaceShip(pygame.sprite.Sprite):
             self.image = self.deathanim[int(self.deadtimer)]
             if self.deadtimer<7:
                 self.deadtimer +=0.1
-
+        '''
     def update_angle(self):
         oldangle=0
         offset = 90
@@ -282,8 +252,6 @@ class SpaceShip(pygame.sprite.Sprite):
             if self.movey<0:
                 self.ismoving = 1
                 self.angle =270+offset
-
-
 
     def showchat(self,showval):
         if showval == 1:
@@ -350,4 +318,88 @@ class SpaceShip(pygame.sprite.Sprite):
         #probably slow BUT!
         world.blit(self.image,self.rect)
 
-     
+class SpaceShip(Player):
+    def __init__(self,player_id):
+        Player.__init__(self, player_id)     
+
+        self.death_sfx = pygame.mixer.Sound(os.path.join(libpath,'res', 'player',"explosion_sfx.ogg"))
+        self.death_sfx.set_volume(0.1)
+        self.id = player_id
+
+        for i in range(1, 3):
+            img = pygame.image.load(os.path.join(libpath,'res', 'player','player'+str(player_id)+'_'+str(i)+'.png')).convert_alpha()
+            img.convert_alpha()  # optimise alpha
+            #img.set_colorkey(ALPHA)  # set alpha
+            self.images.append(img)
+            self.image = self.images[0]
+
+        for i in range(1,9):
+            img = pygame.image.load(os.path.join(libpath,'res', 'player','explosion-0'+str(i)+'.png')).convert_alpha()
+            img.convert_alpha()  # optimise alpha
+            img.set_colorkey(ALPHA)  # set alpha
+            self.deathanim.append(img)
+            self.image = self.images[0]
+
+        boundingbox = pygame.transform.rotate(self.image,45)
+        self.rect = boundingbox.get_rect()
+
+    def update_shapes(self):
+        if self.ismoving:
+            self.fuel -= 1
+
+        self.x = self.rect.center[0]
+        self.y = self.rect.center[1]
+        self.update_angle()
+
+        if self.alive:
+            self.image = pygame.transform.rotate(self.images[self.ismoving and (self.fuel>0)], self.angle)
+    
+        else:     
+            self.image = self.deathanim[int(self.deadtimer)]
+            if self.deadtimer<7:
+                self.deadtimer +=0.1
+class Pilot(Player):
+    def __init__(self,player_id):
+        Player.__init__(self, player_id)     
+
+        self.death_sfx = pygame.mixer.Sound(os.path.join(libpath,'res', 'player',"explosion_sfx.ogg"))
+        self.death_sfx.set_volume(0.1)
+        self.id = player_id
+
+        for i in range(1, 3):
+            img = pygame.image.load(os.path.join(libpath,'res', 'player','pilot_'+str(player_id)+'-0'+str(i)+'.png')).convert_alpha()
+            img.convert_alpha()  # optimise alpha
+            #img.set_colorkey(ALPHA)  # set alpha
+            self.images.append(img)
+            self.image = self.images[0]
+
+        for i in range(1,9):
+            img = pygame.image.load(os.path.join(libpath,'res', 'player','explosion-0'+str(i)+'.png')).convert_alpha()
+            img.convert_alpha()  # optimise alpha
+            img.set_colorkey(ALPHA)  # set alpha
+            self.deathanim.append(img)
+            self.image = self.images[0]
+
+        boundingbox = pygame.transform.rotate(self.image,45)
+        self.rect = boundingbox.get_rect()
+
+    def update_shapes(self):
+        if self.ismoving:
+            self.fuel -= 1
+
+        self.x = self.rect.center[0]
+        self.y = self.rect.center[1]
+        self.update_angle()
+
+        if self.alive:
+            self.image = pygame.transform.flip(self.images[self.ismoving and (self.fuel>0)], self.angle < 180,0)
+    
+        else:     
+            self.image = self.deathanim[int(self.deadtimer)]
+            if self.deadtimer<7:
+                self.deadtimer +=0.1
+
+
+
+
+

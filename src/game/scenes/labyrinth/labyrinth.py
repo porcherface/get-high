@@ -46,8 +46,8 @@ class LabyrinthScene(libs.Scene):
         #elapsed_time = pygame.time.get_ticks()
         
         self.player_list =[]
-        self.player1 = libp.SpaceShip(1)
-        self.player2 = libp.SpaceShip(2)
+        self.player1 = libp.Pilot(1)
+        self.player2 = libp.Pilot(2)
 
 
         self.camera = libc.Camera(self.camx,self.camy,self.worldx, self.worldy,libc.blinking_camera)
