@@ -27,15 +27,12 @@ landingpath = pathlib.Path(__file__).parent.absolute()
 #
 # camera will move only vertycally in this stage
 
-def get_globals(debug,goodaudio):
-    global DEBUG_MODE
-    DEBUG_MODE = debug
-    global MY_AUDIO_IS_WORKING
-    MY_AUDIO_IS_WORKING = goodaudio
     
 class LandingScene(libs.Scene):
     def __init__(self):
 
+        # pic is 1376, world is 1600, 
+        # a black border is totally fine
         libs.Scene.__init__(self,1600, 7680)
         backdroppath=os.path.join(landingpath,'res','landing_background.png')
         
@@ -46,7 +43,7 @@ class LandingScene(libs.Scene):
         self.backsback=pygame.Surface([self.camx, self.camy]).convert()
         self.backsback.fill([0,0,0])
         
-        
+
         #custom camera here!
         self.camera = libc.Camera(self.camx,self.camy,self.worldx, self.worldy, libc.chasing_camera)
         self.clock = pygame.time.Clock()

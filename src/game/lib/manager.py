@@ -12,9 +12,7 @@ import game.scenes.spring.spring as spring
 def get_globals(debug,goodaudio):
     global DEBUG_MODE
     DEBUG_MODE = debug
-    global MY_AUDIO_IS_WORKING
-    MY_AUDIO_IS_WORKING = goodaudio
-
+    
 class SceneManager(object):
     def __init__(self): 
 

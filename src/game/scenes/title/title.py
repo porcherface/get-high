@@ -61,10 +61,9 @@ class TitleScene(libs.Scene):
 
         self.clock = pygame.time.Clock()
 
-        if MY_AUDIO_IS_WORKING:
-            pygame.mixer.music.load(musicpath)
-            pygame.mixer.music.play()
-            pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.load(musicpath)
+        pygame.mixer.music.play()
+        pygame.mixer.music.set_volume(0.3)
 
         self.backdrop = pygame.image.load(os.path.join(backdroppath))
         self.backdropbox = self.world.get_rect()
