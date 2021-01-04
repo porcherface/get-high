@@ -17,7 +17,6 @@ def get_globals(debug,goodaudio):
 class LaunchvidScene(libs.Scene):
     def __init__(self):
         libs.Scene.__init__(self)
-
         backdroppath=os.path.join(launchvidpath,'res','redconiglio.png')
         self.backdrop = pygame.image.load(os.path.join(backdroppath)).convert()
         self.backdropbox = self.backdrop.get_rect()

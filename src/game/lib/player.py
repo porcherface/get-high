@@ -318,6 +318,57 @@ class Player(pygame.sprite.Sprite):
         #probably slow BUT!
         world.blit(self.image,self.rect)
 
+##
+##
+##
+##
+##
+####
+##
+##
+##
+##
+####
+##
+##
+##
+##
+####
+##
+##
+##
+##
+####
+##
+##
+##
+##
+####
+##
+##
+##
+##
+####
+##
+##
+##
+##
+####
+##
+##
+##
+##
+####
+##
+##
+##
+##
+####
+##
+##
+##
+##
+##
 class SpaceShip(Player):
     def __init__(self,player_id):
         Player.__init__(self, player_id)     
@@ -381,18 +432,19 @@ class Pilot(Player):
             self.image = self.images[0]
 
         boundingbox = pygame.transform.rotate(self.image,45)
-        self.rect = boundingbox.get_rect()
+        self.rect = img.get_rect()
 
     def update_shapes(self):
         if self.ismoving:
-            self.fuel -= 1
-
+            #self.fuel -= 1
+            pass #for now
+            
         self.x = self.rect.center[0]
         self.y = self.rect.center[1]
         self.update_angle()
 
         if self.alive:
-            self.image = pygame.transform.flip(self.images[self.ismoving and (self.fuel>0)], self.angle < 180,0)
+            self.image = pygame.transform.flip(self.images[self.ismoving + self.fuel%4], self.angle < 180,0)
     
         else:     
             self.image = self.deathanim[int(self.deadtimer)]

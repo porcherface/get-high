@@ -33,32 +33,22 @@ def get_globals(debug,goodaudio):
     global MY_AUDIO_IS_WORKING
     MY_AUDIO_IS_WORKING = goodaudio
     
-def get_screen_size(x,y):
-    global SCREEN_X
-    global SCREEN_Y 
-    SCREEN_X = x
-    SCREEN_Y = y
-
-get_screen_size(1600,900)
-
-class LandingScene(object):
+class LandingScene(libs.Scene):
     def __init__(self):
 
-        self.STATE = 0
-        self.fps = 40
-        libs.Scene.__init__(self)
+        libs.Scene.__init__(self,1600, 7680)
         backdroppath=os.path.join(landingpath,'res','landing_background.png')
         
-        self.worldx = SCREEN_X
-        self.worldy= 7680
-        self.camx = SCREEN_X
-        self.camy= SCREEN_Y
-        self.world =  pygame.display.set_mode([self.camx, self.camy])
         self.backdrop = pygame.image.load(os.path.join(backdroppath))
         self.backdropbox = self.backdrop.get_rect()
+
+        # not using these for now
+        self.backsback=pygame.Surface([self.camx, self.camy]).convert()
+        self.backsback.fill([0,0,0])
         
-        #self.camerabox=pygame.Rect(0,0,self.camx,self.camy)
-        self.camera = libc.Camera(self.camx,self.camy,self.worldx, self.worldy,libc.chasing_camera)
+        
+        #custom camera here!
+        self.camera = libc.Camera(self.camx,self.camy,self.worldx, self.worldy, libc.chasing_camera)
         self.clock = pygame.time.Clock()
         
         self.player1 = libp.SpaceShip(1)
@@ -101,6 +91,7 @@ class LandingScene(object):
 
     def render(self):
         f = self.camera.apply
+        self.world.blit(self.backsback, self.backdropbox )
         self.world.blit(self.backdrop, f(self.backdropbox))#self.camera.apply(self.backdropbox))#self.camera.apply(self.backdropbox))
         self.world.blit(self.player1.image, f(self.player1.rect))#self.camera.apply(self.player1.rect))
         self.world.blit(self.player2.image, f(self.player2.rect))#self.camera.apply(self.player2.rect))
@@ -153,7 +144,6 @@ class LandingScene(object):
                     finally:
                         main = False
 
-
                 if event.key == ord('a'):
                     self.player1.control(-steps1, 0)
                 if event.key == pygame.K_LEFT:
@@ -166,13 +156,10 @@ class LandingScene(object):
                 
              
             if event.type == pygame.KEYUP and self.rewspawn_bugfix:
-
-
                 if event.key == ord('a'):
                     self.player1.control(steps1, 0)
                 if event.key == pygame.K_LEFT:
                     self.player2.control(steps2, 0)
-                
                 if event.key == ord('d'):
                     self.player1.control(-steps1, 0)
                 if event.key == pygame.K_RIGHT:

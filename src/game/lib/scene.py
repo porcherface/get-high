@@ -13,16 +13,17 @@ class Scene(object):
             y = infoObject.current_h
 
         if rx == None or ry == None:
-            rx = x
-            ry = y
+            infoObject  = pygame.display.Info()
+            rx = infoObject.current_w
+            ry = infoObject.current_h
 
         self.STATE = 0
         self.fps = 40
-
         self.worldx = x
         self.worldy = y
         self.camx   = rx
         self.camy   = ry
+        self.clock = pygame.time.Clock()
         self.world  = pygame.display.set_mode([self.camx, self.camy],FULLSCREEN)
         return
 

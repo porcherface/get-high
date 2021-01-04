@@ -32,7 +32,8 @@ class SceneManager(object):
         if DEBUG_MODE:
             a_little_loop=True
             while a_little_loop : 
-                scene = labyrinth.LabyrinthScene()
+                scene = landing.LandingScene()
+                #scene = labyrinth.LabyrinthScene()
                 #scene = spring.SpringScene()
                 #a_little_loop = False
                 #asteroids.AsteroidScene()

@@ -32,8 +32,6 @@ class AsteroidScene(libs.Scene):
 
         self.hardener = 10
 
-        self.clock = pygame.time.Clock()
-
         #get elapsed time using this!
         #elapsed_time = pygame.time.get_ticks()
         self.player_list =[]

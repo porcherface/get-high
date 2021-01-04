@@ -29,18 +29,13 @@ def get_globals(debug,goodaudio):
 class LabyrinthScene(libs.Scene):
     def __init__(self):
 
-        print("hello maze!")
-
-        self.STATE = 0
-        libs.Scene.__init__(self)
+        libs.Scene.__init__(self, 2048, 1024)
         backdroppath=os.path.join(labyrinthpath,'res','bg_maze.png')
-        self.fps = 40
-        self.worldx = 2048
-        self.worldy= 1024
-        self.camx = 1376
-        self.camy= 768
-        self.world = pygame.display.set_mode([self.camx, self.camy])
-        self.clock = pygame.time.Clock()
+#        self.worldx = 2048
+#        self.worldy= 1024
+#        self.camx = 1376
+#        self.camy= 768
+#        self.world = pygame.display.set_mode([self.camx, self.camy])
 
         #get elapsed time using this!
         #elapsed_time = pygame.time.get_ticks()
@@ -49,14 +44,14 @@ class LabyrinthScene(libs.Scene):
         self.player1 = libp.Pilot(1)
         self.player2 = libp.Pilot(2)
 
-
         self.camera = libc.Camera(self.camx,self.camy,self.worldx, self.worldy,libc.blinking_camera)
 
+        ''' WE DONT NEED THESE ANYMORE 
         self.player1.rect.x = self.worldx * 1/10
         self.player2.rect.x = self.worldx * 9/10
-
         self.player1.rect.y = self.worldy * 9/10
         self.player2.rect.y = self.worldy * 1/10
+        '''
 
         self.player_list = pygame.sprite.Group()
         self.player_list.add(self.player1)
