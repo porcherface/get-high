@@ -5,20 +5,24 @@ import pygame
 from pygame.locals import FULLSCREEN as FULLSCREEN
 
 class Scene(object):
-    def __init__(self,x = None,y = None):
-        
-        if x == None and y == None:
+    def __init__(self,x = None,y = None, rx = None, ry = None):
+
+        if x == None or y == None:
             infoObject  = pygame.display.Info()
             x = infoObject.current_w
             y = infoObject.current_h
+
+        if rx == None or ry == None:
+            rx = x
+            ry = y
 
         self.STATE = 0
         self.fps = 40
 
         self.worldx = x
         self.worldy = y
-        self.camx   = x
-        self.camy   = y
+        self.camx   = rx
+        self.camy   = ry
         self.world  = pygame.display.set_mode([self.camx, self.camy],FULLSCREEN)
         return
 
