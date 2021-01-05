@@ -22,7 +22,7 @@ class SceneManager(object):
         if DEBUG_MODE:
             a_little_loop=True
             while a_little_loop : 
-                scene = landing.LandingScene()
+                #scene = landing.LandingScene()
                 scene = flares.FlaresScene()
                 
                 #scene = labyrinth.LabyrinthScene()

@@ -452,6 +452,46 @@ class Pilot(Player):
                 self.deadtimer +=0.1
 
 
+class CrossHair(Player):
+    def __init__(self,player_id):
+        Player.__init__(self, player_id)     
 
+        self.death_sfx = pygame.mixer.Sound(os.path.join(libpath,'res', 'player',"explosion_sfx.ogg"))
+        self.death_sfx.set_volume(0.1)
+        self.id = player_id
 
+        for i in range(1, 9):
+            img = pygame.image.load(os.path.join(libpath,'res', 'player','crosshair-0'+str(i)+'.png')).convert_alpha()
+            img.convert_alpha()  # optimise alpha
+            #img.set_colorkey(ALPHA)  # set alpha
+            self.images.append(img)
+            self.image = self.images[0]
+
+        for i in range(1,9):
+            img = pygame.image.load(os.path.join(libpath,'res', 'player','explosion-0'+str(i)+'.png')).convert_alpha()
+            img.convert_alpha()  # optimise alpha
+            img.set_colorkey(ALPHA)  # set alpha
+            self.deathanim.append(img)
+            self.image = self.images[0]
+
+        boundingbox = pygame.transform.rotate(self.image,45)
+        self.rect = img.get_rect()
+        self.current_cross = 0
+
+    def update_shapes(self):
+        if self.ismoving:
+            #self.fuel -= 1
+            pass #for now
+            
+        self.x = self.rect.center[0]
+        self.y = self.rect.center[1]
+        self.update_angle()
+
+        if self.alive:
+            self.image = pygame.transform.flip(self.images[self.current_cross], self.angle < 180,0)
+    
+        else:     
+            self.image = self.deathanim[int(self.deadtimer)]
+            if self.deadtimer<7:
+                self.deadtimer +=0.1
 

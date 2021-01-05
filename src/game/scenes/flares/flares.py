@@ -11,6 +11,7 @@ import os
 import game.lib.player as libp
 import game.lib.button as libb
 import game.lib.scene as libs
+import game.lib.camera as libc
 
 import pathlib
 flarepath = pathlib.Path(__file__).parent.absolute()
@@ -24,17 +25,18 @@ class FlaresScene(libs.Scene):
     def __init__(self, chosen_one = 1):
 
         libs.Scene.__init__(self, 2048, 1024)
-        backdroppath=os.path.join(flarepath,'res','jungle.png')
+        #WARNING THIS IS STOLEN AND MUST BE REPLACED
+        backdroppath=os.path.join(flarepath,'res','jungle_stolen.jpg')
 
         self.player_list =[]
 
         if chosen_one == 1:
             self.player1 = libp.Pilot(1)
-            self.player2 = libp.Crosshair(2)
+            self.player2 = libp.CrossHair(2)
             self.focused_player = self.player1
 
         else:            
-            self.player1 = libp.Crosshair(1)
+            self.player1 = libp.CrossHair(1)
             self.player2 = libp.Pilot(2)
             self.focused_player = self.player2
 
@@ -70,7 +72,7 @@ class FlaresScene(libs.Scene):
             main = self.update()
             self.render()
 
-            main = self.reunite()
+            #main = self.reunite()
         return 
         #pygame.quit()
 
@@ -91,20 +93,13 @@ class FlaresScene(libs.Scene):
         self.world.blit(self.backdrop, f(self.backdropbox))#self.camera.apply(self.backdropbox))#self.camera.apply(self.backdropbox))
         self.world.blit(self.player1.image, f(self.player1.rect))#self.camera.apply(self.player1.rect))
         self.world.blit(self.player2.image, f(self.player2.rect))#self.camera.apply(self.player2.rect))
-
-        for block in self.terrain_group:
-            self.world.blit(block.image,f(block.rect))
-
-        for block in self.special_group:
-            self.world.blit(block.image,f(block.rect))
-
         self.clock.tick(self.fps)
         pygame.display.update()
         pygame.display.flip()
         
     def update(self):
-        self.player1.update_2(self.p1collision_group)
-        self.player2.update_2(self.p2collision_group)
+        self.player1.update([self.worldx,self.worldy])
+        self.player2.update([self.worldx,self.worldy])
         self.camera.update(self.focused_player.rect)
         
         return True
@@ -159,7 +154,8 @@ class FlaresScene(libs.Scene):
                     self.player1.showchat(1)
                     
                 if event.key == ord('-'):
-                    self.player2.showchat(1)    
+                    pass
+                    #self.player2.current_cross+=1
 
             if event.type == pygame.KEYUP and self.respawn_bugfix:
 
@@ -187,7 +183,9 @@ class FlaresScene(libs.Scene):
                 if event.key == ord('e'):
                     self.player1.showchat(0)
                 if event.key == ord('-'):
-                    self.player2.showchat(0)
+                    #if self.has_pressed:
+                    self.player2.current_cross = (self.player2.current_cross+1) % 8
+                    #self.player2.current_cross+=1
 
         return main
 
