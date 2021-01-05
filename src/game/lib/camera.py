@@ -44,7 +44,7 @@ def chasing_camera(camera_rect, target_rect,world_xy):
     outcamera.y = y#max(-(world_xy[1]-camera_rect.height), min(0, outcamera.y))
     
     return outcamera
-
+#def static_camera()
 def blinking_camera(camera_rect, target_rect,world_xy):
 
     outcamera = camera_rect
