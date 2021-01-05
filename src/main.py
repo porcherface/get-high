@@ -58,7 +58,9 @@ INIT
 pygame.init()
 if MY_AUDIO_IS_WORKING:
     pygame.mixer.init()
-
+else:
+    print("pussy")
+    sys.exit(1)
 # uncomment these lines to go fullscreen mode
 #infoObject = pygame.display.Info()
 #pygame.display.set_mode((infoObject.current_w, infoObject.current_h))

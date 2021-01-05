@@ -4,7 +4,6 @@
 # new game / load game buttons, 
 
 from typing import Tuple
-
 import pygame
 import sys
 import os
@@ -21,14 +20,6 @@ titlepath = pathlib.Path(__file__).parent.absolute()
 global Variables
 '''
 
-
-def get_globals(debug,goodaudio):
-    global DEBUG_MODE
-    DEBUG_MODE = debug
-    global MY_AUDIO_IS_WORKING
-    MY_AUDIO_IS_WORKING = goodaudio
-
-    
 
 class LoadWindow(pygame.sprite.Sprite):
     def __init__(self):
