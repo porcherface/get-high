@@ -8,6 +8,7 @@ import game.scenes.landing.landing as landing
 import game.scenes.launchvid.launchvid as launchvid
 import game.scenes.labyrinth.labyrinth as labyrinth
 import game.scenes.spring.spring as spring
+import game.scenes.flares.flares as flares
 
 def get_globals(debug,goodaudio):
     global DEBUG_MODE
@@ -16,21 +17,14 @@ def get_globals(debug,goodaudio):
 class SceneManager(object):
     def __init__(self): 
 
-        # global variables still propagating
-        # VERY VERY BAD
-        launchvid.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
-        title.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
-        asteroids.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
-        landing.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
-        labyrinth.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
-        spring.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
-
         ###############
         # debug miniloop
         if DEBUG_MODE:
             a_little_loop=True
             while a_little_loop : 
                 scene = landing.LandingScene()
+                scene = flares.FlaresScene()
+                
                 #scene = labyrinth.LabyrinthScene()
                 #scene = spring.SpringScene()
                 #a_little_loop = False
@@ -53,7 +47,9 @@ class SceneManager(object):
                 # as for now, this scene is a guaranteed death, always returns 0
                 scene = asteroids.AsteroidScene()
                 scene = landing.LandingScene()
+                scene = flares.FlaresScene()
                 scene = labyrinth.LabyrinthScene()
+
                 #scene = spring.SpringScene()
                 return 
             if(scene.STATE == 1):
