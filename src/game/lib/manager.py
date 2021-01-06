@@ -36,9 +36,11 @@ class SceneManager(object):
         ##########     GAME STATES HERE      #########
         ##############################################
         ##############################################    
+
+        #REDCONIGLIO PROUDLY PRESENTS
         scene = launchvid.LaunchvidScene()
+        #a game
         scene = title.TitleScene()
-        #print(scene)
         GAME_LOOP = True
         while GAME_LOOP:
             if(scene.STATE == 0): 

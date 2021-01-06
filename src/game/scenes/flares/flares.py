@@ -16,7 +16,6 @@ import game.lib.camera as libc
 import pathlib
 flarepath = pathlib.Path(__file__).parent.absolute()
 
-
 '''
 global Variables
 ''' 
@@ -24,9 +23,10 @@ global Variables
 class FlaresScene(libs.Scene):
     def __init__(self, chosen_one = 1):
 
-        libs.Scene.__init__(self, 2048, 1024)
+        libs.Scene.__init__(self, 4096, 1024)
         #WARNING THIS IS STOLEN AND MUST BE REPLACED
         backdroppath=os.path.join(flarepath,'res','jungle_stolen.jpg')
+        maskpath=os.path.join(flarepath,'res','mask_128.png')
 
         self.player_list =[]
 
@@ -40,8 +40,7 @@ class FlaresScene(libs.Scene):
             self.player2 = libp.Pilot(2)
             self.focused_player = self.player2
 
-
-        self.camera = libc.Camera(self.camx,self.camy,self.worldx, self.worldy,libc.chasing_camera)
+        self.camera = libc.Camera(self.camx,self.camy,self.worldx, self.worldy,libc.blinking_camera)
 
         ''' WE DONT NEED THESE ANYMORE 
         self.player1.rect.x = self.worldx * 1/10
@@ -59,6 +58,12 @@ class FlaresScene(libs.Scene):
         self.backdrop = pygame.image.load(os.path.join(backdroppath)).convert_alpha()
         self.backdropbox = self.backdrop.get_rect()
 
+        #mask_size = (128,128)
+        self.mask_img = pygame.image.load(os.path.join(maskpath)).convert_alpha()
+        self.mask_rect = self.mask_img.get_rect()
+        
+        self.backsback=pygame.Surface([self.camx, self.camy]).convert()
+        self.backsback.fill([0,0,0])
 
         '''
         Main Loop
@@ -70,8 +75,9 @@ class FlaresScene(libs.Scene):
 
             main = self.handle_events(pygame.event.get())    
             main = self.update()
-            self.render()
-
+            
+            self.render_mask()
+            #self.render()
             #main = self.reunite()
         return 
         #pygame.quit()
@@ -84,20 +90,33 @@ class FlaresScene(libs.Scene):
         sq_tol = 400
         if(deltax*deltax + deltay*deltay >sq_tol):
             return True
-
         return False
 
+    def render_mask(self):
+        f = self.camera.apply
+        self.mask_img.blit(self.backdrop, f(self.backdropbox))#self.camera.apply(self.backdropbox))#self.camera.apply(self.backdropbox))
+        self.mask_img.blit(self.player1.image, f(self.backdropbox))#self.camera.apply(self.player1.rect))
+        self.world.blit(self.backsback, self.backdropbox)#self.camera.apply(self.player2.rect))
+        self.world.blit(self.mask_img, self.mask_rect)
+        self.world.blit(self.player2.image, f(self.player2.rect))#self.camera.apply(self.player2.rect))
+        
+        pygame.display.flip()
+        self.clock.tick(self.fps)
 
     def render(self):
         f = self.camera.apply
+
         self.world.blit(self.backdrop, f(self.backdropbox))#self.camera.apply(self.backdropbox))#self.camera.apply(self.backdropbox))
         self.world.blit(self.player1.image, f(self.player1.rect))#self.camera.apply(self.player1.rect))
         self.world.blit(self.player2.image, f(self.player2.rect))#self.camera.apply(self.player2.rect))
-        self.clock.tick(self.fps)
-        pygame.display.update()
+        
+        # update and flip do kinda the same?
+        #pygame.display.update()
         pygame.display.flip()
+        self.clock.tick(self.fps)
         
     def update(self):
+        self.mask_rect.center = self.player1.rect.center
         self.player1.update([self.worldx,self.worldy])
         self.player2.update([self.worldx,self.worldy])
         self.camera.update(self.focused_player.rect)
@@ -109,7 +128,6 @@ class FlaresScene(libs.Scene):
         walk_speed = 10
         steps1 = walk_speed
         steps2 = walk_speed
-
 
         for event in events:
  

@@ -95,7 +95,7 @@ class LandingScene(libs.Scene):
 
         self.clock.tick(self.fps)
         pygame.display.update()
-        pygame.display.flip()
+        #pygame.display.flip()
         
     def update(self):
 

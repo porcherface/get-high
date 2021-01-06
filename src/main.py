@@ -35,21 +35,20 @@ DEBUG_MODE = False
 '''
 arg parse
 '''
+
 parser = argparse.ArgumentParser()
-parser.add_argument("-n","--noaudio", help="turn off audio cus my pc is pussy",action="store_true")
+#parser.add_argument("-n","--noaudio", help="turn off audio cus my pc is pussy",action="store_true")
+#parser.add_argument("-w","--windows",help="i got windows",action="store_true")
 parser.add_argument("-d","--debug", help="skip to level under work on launch",action="store_true")
-parser.add_argument("-w","--windows",help="i got windows",action="store_true")
 
 args = parser.parse_args()
 
-if args.windows:
-    os.add_dll_directory(os.path.join(mainpath,"dll"))
-if args.noaudio:
-    MY_AUDIO_IS_WORKING = False
+#if args.windows:
+#    os.add_dll_directory(os.path.join(mainpath,"dll"))
+#if args.noaudio:
+#    MY_AUDIO_IS_WORKING = False
 if args.debug:
     DEBUG_MODE = True
-
-libm.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
 
 '''
 INIT
@@ -69,18 +68,15 @@ else:
 #infoObject = pygame.display.Info()
 #pygame.display.set_mode((1600, 900),FULLSCREEN)
 
-
 '''
 Setup
 '''
 programIconPath = os.path.join(mainpath,'game','lib','res', 'player','player2_2.png')
-print("gettin paths from: "+programIconPath)
 programIcon = pygame.image.load(programIconPath)
 pygame.display.set_icon(programIcon)
+libm.get_globals(DEBUG_MODE,MY_AUDIO_IS_WORKING)
 libm.SceneManager()
-
 
 # THE GAME
 if __name__ == "__main__":
-
     pass

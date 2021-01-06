@@ -117,8 +117,8 @@ class AsteroidScene(libs.Scene):
         self.player1.drawhud(self.world)
         self.player2.drawhud(self.world)
 
-
-        pygame.display.flip()
+        pygame.display.update()
+        #pygame.display.flip()
         self.clock.tick(self.fps)
 
     def update(self):
