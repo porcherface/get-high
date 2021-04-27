@@ -1,0 +1,5 @@
+Small 2 players minigame developed entirely in Python3
+
+to launch the demo
+
+python3 src/main.py
