@@ -3,3 +3,20 @@ Small 2 players minigame developed entirely in Python3
 to launch the demo
 
 python3 src/main.py
+
+LET’S GO GET HIGH – v0.0.1
+
+
+LET’S GO GET HIGH is a 2-players-1-screen small videogame focused on “complementary cooperation”. 
+
+Synopsis:
+two little astronauts are forced to land on a unknown planet after a orbital incident.
+Both their ships are heavily damaged and lack some primary vital gear.
+Their main goal is to reach the sky again, together.
+
+
+Game concept:
+A series of mini-game levels focused on different cooperation concepts, like a forced “shared” camera, 
+a you-move-i-shoot mechanic, a forced proximity or some other little tweak. This design is focused on forcing
+the two player to act as one, in order to succeed. Game is intented to be a little funny time killer for two 
+people sharing a room and a screen. 
